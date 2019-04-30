@@ -5,7 +5,7 @@ F=Fenetre()
 F.title("Projetgang")
 zg=F.graphique(largeur=600,hauteur=500,couleur=white)
 
-A=Point(70,150)
+A=Point(300,250)
 B=Point(552,125)
 C=Point(570,200)
 D=Point(32,125)
@@ -14,8 +14,8 @@ r=10
 a=zg.draw_fill_circle(A,r,green)
 raq1=zg.draw_fill_rectangle(B,C,couleur=red)
 raq2=zg.draw_fill_rectangle(D,E,couleur=blue)
-vx=5
-vy=-5
+vx=3
+vy=-3
 K=0
 J=0
 def move_raq(event):
@@ -30,10 +30,12 @@ def move_raq(event):
         C=Point(C.x+0,C.y+15)  
     if event.keysym=='z':
         zg.move(raq2,0,-15)
-    elif event.keysym=='s':
-        zg.move(raq2,0,15)
         D=Point(D.x+0,D.y-15)
         E=Point(E.x+0,E.y-15)
+    elif event.keysym=='s':
+        zg.move(raq2,0,15)
+        D=Point(D.x+0,D.y+15)
+        E=Point(E.x+0,E.y+15)
     
     
 
@@ -46,23 +48,35 @@ def animation():
         vy=-vy
     elif A.y<=0+r:
         vy=-vy
-    if A.x+r>=B.x and A.y+r>=C.y and A.y-r<=B.y:
+    if A.x+r>=B.x and A.y+r<=C.y and A.y-r>=B.y:
+        vy=-vy
+        vx=-vx
+    if A.x-r<=E.x and A.y+r<=E.y and A.y-r>=D.y:
         vy=-vy
         vx=-vx
     if A.x<0 :
         J=J+1
         #Remettre la balle au milieu
     if A.x>600:
+        zg.draw_fill_circle(Q,25,white)
+        zg.aff_texte(K,Q)
+        A.y=300
+        A.x=250
+        zg.move(a,-300,0)
+        # A.y=A.y-300
+        
+        
         K=K+1
        #Remettre la balle au milieu
     zg.move(a,vx,vy)
     zg.after(20,animation)
     A=Point(A.x+vx,A.y+vy)
-    zg.aff_texte(K,P)
     
-P=Point(400,100) 
+    
+P=Point(450,25)
+Q=Point(150,25) 
 #refresh
-zg.aff_texte(K,P)
+
 
 
 
