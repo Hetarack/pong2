@@ -46,7 +46,9 @@ def animation():
         vy=-vy
     elif A.y<=0+r:
         vy=-vy
-    #if pour colision avec les raquettes
+    if A.x+r>=B.x and A.y+r>=C.y and A.y-r<=B.y:
+        vy=-vy
+        vx=-vx
     if A.x<0 :
         J=J+1
         #Remettre la balle au milieu
