@@ -1,0 +1,85 @@
+from graphics.fenetres import *
+from graphics.couleurs import *
+from random import randint
+F=Fenetre()
+F.title("Projetgang")
+zg=F.graphique(largeur=600,hauteur=500,couleur=white)
+
+A=Point(70,150)
+B=Point(552,125)
+C=Point(570,200)
+D=Point(32,125)
+E=Point(50,200)
+r=10
+a=zg.draw_fill_circle(A,r,green)
+raq1=zg.draw_fill_rectangle(B,C,couleur=red)
+raq2=zg.draw_fill_rectangle(D,E,couleur=blue)
+vx=5
+vy=-5
+K=0
+J=0
+def move_raq(event):
+    global raq1,raq2,B,C,D,E
+    if event.keysym=='p':
+        zg.move(raq1,0,-15)
+        B=Point(B.x+0,B.y-15) 
+        C=Point(C.x+0,C.y-15)
+    elif event.keysym=='m':
+        zg.move(raq1,0,15)
+        B=Point(B.x+0,B.y+15) 
+        C=Point(C.x+0,C.y+15)  
+    if event.keysym=='z':
+        zg.move(raq2,0,-15)
+    elif event.keysym=='s':
+        zg.move(raq2,0,15)
+        D=Point(D.x+0,D.y-15)
+        E=Point(E.x+0,E.y-15)
+    
+    
+
+zg.activer_clavier()
+zg.bind('<Key>',move_raq)
+
+def animation():
+    global vx,vy,A,B,C,r,K,J
+    if A.y>=500-r:
+        vy=-vy
+    elif A.y<=0+r:
+        vy=-vy
+    #if pour colision avec les raquettes
+    if A.x<0 :
+        J=J+1
+        #Remettre la balle au milieu
+    if A.x>600:
+        K=K+1
+       #Remettre la balle au milieu
+    zg.move(a,vx,vy)
+    zg.after(20,animation)
+    A=Point(A.x+vx,A.y+vy)
+    zg.aff_texte(K,P)
+    
+P=Point(400,100) 
+#refresh
+zg.aff_texte(K,P)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+animation()
+f=mainloop()
